@@ -19,7 +19,7 @@ namespace NewsWebsiteProject.Domain.Entities
         public string Contents { get; set; }
 
         [Column("createdOn")]
-        public DateTime CreatedOn { get; set; }
+        public DateTime? CreatedOn { get; set; }
 
         [Column("published")]
         public bool Published { get; set; }

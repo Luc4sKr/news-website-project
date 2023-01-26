@@ -25,4 +25,8 @@
     <ProjectReference Include="..\NewsWebsiteProject.Infra.Data\NewsWebsiteProject.Infra.Data.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Views\Category\" />
+  </ItemGroup>
+
 </Project>

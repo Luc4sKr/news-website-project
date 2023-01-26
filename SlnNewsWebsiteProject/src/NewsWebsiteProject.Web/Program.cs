@@ -1,5 +1,9 @@
 using Microsoft.EntityFrameworkCore;
+using NewsWebsiteProject.Application.Services.SQLServerServices;
+using NewsWebsiteProject.Domain.IRepositories;
+using NewsWebsiteProject.Domain.IServices;
 using NewsWebsiteProject.Infra.Data.Context;
+using NewsWebsiteProject.Infra.Data.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,6 +12,15 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddDbContext<SQLServerContext>
     (options => options.UseSqlServer(builder.Configuration.GetConnectionString("DataBase")));
+
+// ** Dependency Injection
+// Repositories
+builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+builder.Services.AddScoped<INewsRepository, NewsRepository>();
+
+// Services
+builder.Services.AddScoped<ICategoryService, CategoryService>();
+builder.Services.AddScoped<INewsService, NewsService>();
 
 var app = builder.Build();
 
