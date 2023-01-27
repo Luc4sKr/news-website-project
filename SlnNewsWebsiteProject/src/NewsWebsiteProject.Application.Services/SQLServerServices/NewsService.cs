@@ -1,4 +1,5 @@
 ﻿using NewsWebsiteProject.Domain.DTO;
+using NewsWebsiteProject.Domain.IRepositories;
 using NewsWebsiteProject.Domain.IServices;
 using System;
 using System.Collections.Generic;
@@ -10,14 +11,31 @@ namespace NewsWebsiteProject.Application.Services.SQLServerServices
 {
     public class NewsService : INewsService
     {
-        public Task<int> Delete(NewsDTO entity)
+        private readonly INewsRepository _repository;
+
+        public NewsService(INewsRepository repository)
         {
-            throw new NotImplementedException();
+            _repository = repository;
         }
 
-        public IQueryable<NewsDTO> FindAll()
+        public List<NewsDTO> FindAll()
         {
-            throw new NotImplementedException();
+            return _repository.FindAll()
+                .Select(news => new NewsDTO()
+                {
+                    id = news.Id,
+                    title = news.Title,
+                    description = news.Description,
+                    contents = news.Contents,
+                    published = news.Published,
+                    createdOn = news.CreatedOn,
+                    categoryId = news.CategoryId,
+                    category = new CategoryDTO()
+                    {
+                        id = news.Category.Id,
+                        name = news.Category.Name
+                    }
+                }).ToList();
         }
 
         public Task<NewsDTO> FindById(int id)
@@ -25,12 +43,20 @@ namespace NewsWebsiteProject.Application.Services.SQLServerServices
             throw new NotImplementedException();
         }
 
-        public Task<int> Save(NewsDTO entity)
+        public Task<int> Save(NewsDTO entityDTO)
+        {
+            entityDTO.createdOn = DateTime.Now;
+            entityDTO.published = true;
+
+            return _repository.Save(entityDTO.mapToEntity());
+        }
+
+        public Task<int> Update(NewsDTO entityDTO)
         {
             throw new NotImplementedException();
         }
 
-        public Task<int> Update(NewsDTO entity)
+        public Task<int> Delete(NewsDTO entityDTO)
         {
             throw new NotImplementedException();
         }

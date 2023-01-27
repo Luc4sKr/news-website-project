@@ -1,4 +1,5 @@
 ﻿using NewsWebsiteProject.Domain.DTO;
+using NewsWebsiteProject.Domain.IRepositories;
 using NewsWebsiteProject.Domain.IServices;
 using System;
 using System.Collections.Generic;
@@ -10,14 +11,21 @@ namespace NewsWebsiteProject.Application.Services.SQLServerServices
 {
     public class CategoryService : ICategoryService
     {
-        public Task<int> Delete(CategoryDTO entity)
+        private readonly ICategoryRepository _repository;
+
+        public CategoryService(ICategoryRepository repository)
         {
-            throw new NotImplementedException();
+            _repository = repository;
         }
 
-        public IQueryable<CategoryDTO> FindAll()
+        public List<CategoryDTO> FindAll()
         {
-            throw new NotImplementedException();
+            return _repository.FindAll()
+                .Select(category => new CategoryDTO()
+                {
+                    id = category.Id,
+                    name = category.Name
+                }).ToList();
         }
 
         public Task<CategoryDTO> FindById(int id)
@@ -31,6 +39,11 @@ namespace NewsWebsiteProject.Application.Services.SQLServerServices
         }
 
         public Task<int> Update(CategoryDTO entity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<int> Delete(CategoryDTO entity)
         {
             throw new NotImplementedException();
         }

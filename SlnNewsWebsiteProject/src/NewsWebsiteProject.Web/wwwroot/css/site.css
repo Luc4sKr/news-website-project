@@ -16,3 +16,7 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+:root {
+    --main-bg-color: #403f4c;
+}

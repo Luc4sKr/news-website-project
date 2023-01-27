@@ -1,4 +1,4 @@
-﻿using NewsWebsiteProject.Domain.IServices;
+﻿using NewsWebsiteProject.Domain.IRepositories;
 using NewsWebsiteProject.Infra.Data.Context;
 using System;
 using System.Collections.Generic;
@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace NewsWebsiteProject.Infra.Data.Repositories
 {
-    public class BaseRepository<T> : IBaseService<T> where T : class
+    public class BaseRepository<T> : IBaseRepository<T> where T : class
     {
         private readonly SQLServerContext _context;
 

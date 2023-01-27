@@ -1,6 +1,7 @@
 ﻿using NewsWebsiteProject.Domain.Entities;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
@@ -12,13 +13,16 @@ namespace NewsWebsiteProject.Domain.DTO
     {
         public int id { get; set; }
 
+        [DisplayName("Title")]
         [Required(ErrorMessage = "Set a title, please.")]
         public string title { get; set; }
 
+        [DisplayName("Description")]
         [Required(ErrorMessage = "Set a description, please.")]
         [MinLength(5, ErrorMessage = "Description should bigger than 5 characters")]
         public string description { get; set; }
 
+        [DisplayName("Contents")]
         [Required(ErrorMessage = "Set a content, please")]
         [MinLength(30, ErrorMessage = "Contents should bigger than 30 characters")]
         public string contents { get; set; }
